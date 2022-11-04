@@ -1,14 +1,19 @@
 import Button from "../common/Button";
 import { ReactComponent as Icon } from "../../assets/logo.svg";
+import classNames from "classnames";
 
-const Header = () => {
+import "./Header.css";
+
+const Header = ({ className }) => {
   return (
-    <header>
-      <div>
+    <header className={classNames("header", className)}>
+      <div className="header-logo">
         <Icon width="30" height="30" />
       </div>
-      <nav>
-        <Button variant="primary">Login</Button>
+      <nav className="header-bar">
+        <Button variant="primary" className="header-button">
+          Login
+        </Button>
       </nav>
     </header>
   );

@@ -1,14 +1,15 @@
 import Header from "./Header";
+import "./Layout.css";
 
 const Layout = ({ children, title }) => {
   return (
-    <div>
-      <Header />
-      <main>
-        <h2>{title}</h2>
-        <section>{children}</section>
+    <div className="layout">
+      <Header className="layout-header bordered" />
+      <main className="layout-main bordered">
+        <h2 className="layout-title bordered">{title}</h2>
+        <section className="layout-content">{children}</section>
       </main>
-      <footer>@ Node-react 2022</footer>
+      <footer className="layout-footer bordered">@ Node-react 2022</footer>
     </div>
   );
 };
