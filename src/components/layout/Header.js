@@ -4,16 +4,22 @@ import classNames from "classnames";
 
 import "./Header.css";
 
-const Header = ({ className }) => {
+const Header = ({ className, isLogged }) => {
   return (
     <header className={classNames("header", className)}>
       <div className="header-logo">
         <Icon width="30" height="30" />
       </div>
       <nav className="header-bar">
-        <Button variant="primary" className="header-button">
-          Login
-        </Button>
+        {isLogged ? (
+          <Button variant="primary" className="header-button">
+            Log Out
+          </Button>
+        ) : (
+          <Button variant="primary" className="header-button">
+            Login
+          </Button>
+        )}
       </nav>
     </header>
   );

@@ -3,11 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import storage from "./utils/storage";
+import { setAuthorizationHeader } from "./components/api/client";
+
+const accesToken = storage.get("auth");
+setAuthorizationHeader(accesToken);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
-  <App />
+  <App isInitiallyLogged={!!accesToken} />
   //</React.StrictMode>
 );
 

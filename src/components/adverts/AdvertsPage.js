@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAdverts } from "./service";
 import Layout from "../layout/Layout";
 
-const AdvertsPage = () => {
+const AdvertsPage = ({ ...props }) => {
   const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const AdvertsPage = () => {
   }, []);
 
   return (
-    <Layout title="Node-React">
+    <Layout title="Node-React" {...props}>
       <div className="advertsPage">
         {adverts.length ? (
           <ul>

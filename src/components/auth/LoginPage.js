@@ -1,23 +1,36 @@
 import { useState } from "react";
 import Button from "../common/Button";
-import FormField from "./FormField";
+import FormField from "../common/FormField";
 
 import "./LoginPage.css";
+import { login } from "./service";
 
-const LoginPage = () => {
-  const [username, setUsername] = useState("");
+const LoginPage = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
-  const handleChangeUsername = (event) => setUsername(event.target.value);
+  const handleChangeUsername = (event) => setEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
+  const resetError = () => setError(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(username, password);
+
+    try {
+      resetError();
+      setIsFetching(true);
+      await login({ email, password });
+      onLogin();
+    } catch (error) {
+      setError(error);
+      setIsFetching(false);
+    }
   };
 
   const isDisabled = () => {
-    return !(username && password);
+    return !(email && password && !isFetching);
   };
   return (
     <div className="loginPage">
@@ -25,11 +38,11 @@ const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <FormField
           type="text"
-          name="username"
+          name="email"
           label="Enter your email"
           className="loginForm-field"
           onChange={handleChangeUsername}
-          value={username}
+          value={email}
         />
         <FormField
           type="password"
@@ -48,6 +61,12 @@ const LoginPage = () => {
           LogIn
         </Button>
       </form>
+
+      {error && (
+        <div className="loginPage-error" onClick={resetError}>
+          {error.message}
+        </div>
+      )}
     </div>
   );
 };
