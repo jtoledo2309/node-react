@@ -3,8 +3,14 @@ import { ReactComponent as Icon } from "../../assets/logo.svg";
 import classNames from "classnames";
 
 import "./Header.css";
+import { logout } from "../auth/service";
 
-const Header = ({ className, isLogged }) => {
+const Header = ({ className, isLogged, onLogout }) => {
+  const handleLogoutClick = async () => {
+    await logout();
+    onLogout();
+  };
+
   return (
     <header className={classNames("header", className)}>
       <div className="header-logo">
@@ -12,7 +18,11 @@ const Header = ({ className, isLogged }) => {
       </div>
       <nav className="header-bar">
         {isLogged ? (
-          <Button variant="primary" className="header-button">
+          <Button
+            variant="primary"
+            className="header-button"
+            onClick={handleLogoutClick}
+          >
             Log Out
           </Button>
         ) : (
