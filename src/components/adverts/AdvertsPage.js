@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { getAdverts } from "./service";
-import Layout from "../layout/Layout";
+import Page from "../layout/Page";
 import { Link } from "react-router-dom";
+import Button from "../common/Button";
 
+const EmptyList = () => (
+  <div>
+    <p>Sube tu primer producto</p>
+    <Button as={Link} to="adverts/new" variant="primary">
+      Subir
+    </Button>
+  </div>
+);
 const AdvertsPage = (props) => {
   const [adverts, setAdverts] = useState([]);
 
@@ -15,7 +24,7 @@ const AdvertsPage = (props) => {
   }, []);
 
   return (
-    <Layout title="Node-React" {...props}>
+    <Page title="Node-React" {...props}>
       <div className="advertsPage">
         {adverts.length ? (
           <ul>
@@ -28,10 +37,10 @@ const AdvertsPage = (props) => {
             ))}
           </ul>
         ) : (
-          <button>Sube el primer producto</button>
+          <EmptyList />
         )}
       </div>
-    </Layout>
+    </Page>
   );
 };
 

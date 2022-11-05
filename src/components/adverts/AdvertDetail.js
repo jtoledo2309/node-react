@@ -1,13 +1,26 @@
-import Layout from "../layout/Layout";
-import { useParams } from "react-router-dom";
+import Page from "../layout/Page";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getAdvertsDetail } from "./service";
 
 const AdvertDetail = (props) => {
+  const [advert, setAdvert] = useState(null);
   const { advertId } = useParams();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    getAdvertsDetail(advertId)
+      .then((advert) => setAdvert(advert))
+      .catch((error) => {
+        if (error.status === 404) {
+          navigate("404");
+        }
+      });
+  }, [advertId, navigate]);
   return (
-    <Layout title="Upload a product" {...props}>
-      <div>Advert detail: {advertId}</div>
-    </Layout>
+    <Page title="Upload a product" {...props}>
+      <div>{JSON.stringify(advert)}</div>
+    </Page>
   );
 };
 

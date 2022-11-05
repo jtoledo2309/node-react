@@ -1,10 +1,10 @@
-import Layout from "../layout/Layout";
+import Page from "../layout/Page";
 
 const NewAdvertPage = (props) => {
   return (
-    <Layout title="Upload a product" {...props}>
+    <Page title="Upload a product" {...props}>
       <div>Add a new product</div>
-    </Layout>
+    </Page>
   );
 };
 

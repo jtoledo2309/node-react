@@ -34,7 +34,12 @@ const Header = ({ className, isLogged, onLogout }) => {
             Log Out
           </Button>
         ) : (
-          <Button variant="primary" className="header-button">
+          <Button
+            as={Link}
+            to="/login"
+            variant="primary"
+            className="header-button"
+          >
             Login
           </Button>
         )}
