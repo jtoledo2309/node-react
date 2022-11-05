@@ -1,7 +1,7 @@
 import Button from "../common/Button";
 import { ReactComponent as Icon } from "../../assets/logo.svg";
 import classNames from "classnames";
-
+import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { logout } from "../auth/service";
 
@@ -13,10 +13,18 @@ const Header = ({ className, isLogged, onLogout }) => {
 
   return (
     <header className={classNames("header", className)}>
-      <div className="header-logo">
-        <Icon width="30" height="30" />
-      </div>
-      <nav className="header-bar">
+      <Link to="/">
+        <div className="header-logo">
+          <Icon width="30" height="30" />
+        </div>
+      </Link>
+      <nav className="header-nav">
+        <NavLink to="/adverts/new" end>
+          Añadir producto{" "}
+        </NavLink>
+        <NavLink to="/adverts" end>
+          Listado de productos
+        </NavLink>
         {isLogged ? (
           <Button
             variant="primary"

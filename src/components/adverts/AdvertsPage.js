@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAdverts } from "./service";
 import Layout from "../layout/Layout";
+import { Link } from "react-router-dom";
 
 const AdvertsPage = (props) => {
   const [adverts, setAdverts] = useState([]);
@@ -20,7 +21,9 @@ const AdvertsPage = (props) => {
           <ul>
             {adverts.map((item) => (
               <li key={item.id}>
-                Producto: {item.name} - etiqueta/s: {item.tags}
+                <Link to={`/adverts/${item.id}`}>
+                  Producto: {item.name} - etiqueta/s: {item.tags}
+                </Link>
               </li>
             ))}
           </ul>

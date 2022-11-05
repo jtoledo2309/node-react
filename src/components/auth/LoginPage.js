@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../common/Button";
 import FormField from "../common/FormField";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
 import { login } from "./service";
@@ -10,6 +11,8 @@ const LoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleChangeUsername = (event) => setEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
@@ -23,6 +26,8 @@ const LoginPage = ({ onLogin }) => {
       setIsFetching(true);
       await login({ email, password });
       onLogin();
+      const previousroute = location.state?.from?.pathname || "/";
+      navigate(previousroute, { replace: true });
     } catch (error) {
       setError(error);
       setIsFetching(false);
