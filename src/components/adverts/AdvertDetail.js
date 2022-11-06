@@ -18,7 +18,7 @@ const AdvertDetail = (props) => {
       });
   }, [advertId, navigate]);
   return (
-    <Page title="Upload a product" {...props}>
+    <Page title="Detail product" {...props}>
       <div>{JSON.stringify(advert)}</div>
     </Page>
   );

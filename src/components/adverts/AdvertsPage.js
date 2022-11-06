@@ -7,7 +7,7 @@ import Button from "../common/Button";
 const EmptyList = () => (
   <div>
     <p>Sube tu primer producto</p>
-    <Button as={Link} to="adverts/new" variant="primary">
+    <Button as={Link} to="new" variant="primary">
       Subir
     </Button>
   </div>

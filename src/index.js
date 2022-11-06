@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./components/api/client";
+import { AuthContextProvider } from "./components/auth/context";
 
 const accesToken = storage.get("auth");
 setAuthorizationHeader(accesToken);
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
   <Router>
-    <App isInitiallyLogged={!!accesToken} />
+    <AuthContextProvider isInitiallyLogged={!!accesToken}>
+      <App />
+    </AuthContextProvider>
   </Router>
   //</React.StrictMode>
 );

@@ -1,4 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { AuthContextConsumer } from "./context";
 
 const RequireAuth = ({ isLogged, children }) => {
   const location = useLocation();
@@ -10,4 +11,12 @@ const RequireAuth = ({ isLogged, children }) => {
   return children;
 };
 
-export default RequireAuth;
+const ConnectedRequiredAuth = (props) => {
+  return (
+    <AuthContextConsumer>
+      {(value) => <RequireAuth isLogged={value.isLogged} {...props} />}
+    </AuthContextConsumer>
+  );
+};
+
+export default ConnectedRequiredAuth;

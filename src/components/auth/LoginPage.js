@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
 import { login } from "./service";
+import { useAuth } from "./context";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const LoginPage = ({ onLogin }) => {
   const [isFetching, setIsFetching] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { handleLogin } = useAuth();
 
   const handleChangeUsername = (event) => setEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
@@ -25,7 +27,7 @@ const LoginPage = ({ onLogin }) => {
       resetError();
       setIsFetching(true);
       await login({ email, password });
-      onLogin();
+      handleLogin();
       const previousroute = location.state?.from?.pathname || "/";
       navigate(previousroute, { replace: true });
     } catch (error) {

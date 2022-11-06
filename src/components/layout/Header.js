@@ -4,11 +4,13 @@ import classNames from "classnames";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { logout } from "../auth/service";
+import { useAuth } from "../auth/context";
 
-const Header = ({ className, isLogged, onLogout }) => {
+const Header = ({ className }) => {
+  const { isLogged, handleLogout } = useAuth();
   const handleLogoutClick = async () => {
     await logout();
-    onLogout();
+    handleLogout();
   };
 
   return (
