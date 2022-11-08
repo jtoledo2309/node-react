@@ -11,3 +11,13 @@ export const getAdvertsDetail = (advertId) => {
   const url = `${advertUrl}/${advertId}`;
   return client.get(url);
 };
+
+export const getTags = () => {
+  const url = `${advertUrl}/tags`;
+  return client.get(url);
+};
+
+export const createAdvert = (advert) => {
+  const url = advertUrl;
+  return client.post(url, advert);
+};

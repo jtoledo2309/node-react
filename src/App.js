@@ -11,17 +11,18 @@ function App() {
     <div className="app">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/adverts" element={<Layout />}>
+        <Route
+          path="/adverts"
+          element={
+            <RequireAuth>
+              {" "}
+              <Layout />{" "}
+            </RequireAuth>
+          }
+        >
           <Route index element={<AdvertsPage />} />
           <Route path=":advertId" element={<AdvertDetail />} />
-          <Route
-            path="new"
-            element={
-              <RequireAuth>
-                <NewAdvertPage />
-              </RequireAuth>
-            }
-          />
+          <Route path="new" element={<NewAdvertPage />} />
         </Route>
         <Route path="/" element={<Navigate to="/adverts" />} />
         <Route path="/404" element={<div>Error 404 / Not found</div>} />

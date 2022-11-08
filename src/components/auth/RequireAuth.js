@@ -3,7 +3,6 @@ import { AuthContextConsumer } from "./context";
 
 const RequireAuth = ({ isLogged, children }) => {
   const location = useLocation();
-  console.log(location);
 
   if (!isLogged) {
     return <Navigate to="/login" state={{ from: location }} />;

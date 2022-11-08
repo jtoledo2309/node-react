@@ -31,7 +31,8 @@ const AdvertsPage = (props) => {
             {adverts.map((item) => (
               <li key={item.id}>
                 <Link to={`/adverts/${item.id}`}>
-                  Producto: {item.name} - etiqueta/s: {item.tags}
+                  Producto: {item.name} - etiqueta/s: {item.tags} -precio:{" "}
+                  {item.price} -estado:{item.sale ? "Se vende" : "Buscado"}
                 </Link>
               </li>
             ))}
