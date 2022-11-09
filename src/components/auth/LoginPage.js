@@ -4,8 +4,9 @@ import FormField from "../common/FormField";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
-import { login } from "./service";
+import { login, loginNotSet } from "./service";
 import { useAuth } from "./context";
+import CheckBox from "../common/Checkbox";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -15,10 +16,15 @@ const LoginPage = ({ onLogin }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { handleLogin } = useAuth();
+  const [rememberLogin, setRememberLogin] = useState(false);
 
   const handleChangeUsername = (event) => setEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
   const resetError = () => setError(null);
+
+  const handleRememberLogin = (event) => {
+    event.target.checked ? setRememberLogin(true) : setRememberLogin(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,10 +32,17 @@ const LoginPage = ({ onLogin }) => {
     try {
       resetError();
       setIsFetching(true);
-      await login({ email, password });
-      handleLogin();
-      const previousroute = location.state?.from?.pathname || "/";
-      navigate(previousroute, { replace: true });
+      if (rememberLogin) {
+        await login({ email, password });
+        handleLogin();
+        const previousroute = location.state?.from?.pathname || "/";
+        navigate(previousroute, { replace: true });
+      } else {
+        await loginNotSet({ email, password });
+        handleLogin();
+        const previousroute = location.state?.from?.pathname || "/";
+        navigate(previousroute, { replace: true });
+      }
     } catch (error) {
       setError(error);
       setIsFetching(false);
@@ -58,6 +71,13 @@ const LoginPage = ({ onLogin }) => {
           className="loginForm-field"
           onChange={handleChangePassword}
           value={password}
+        />
+        <CheckBox
+          type="checkbox"
+          name="remember-password"
+          label="Quiero recordar tu usuario para proximas sesiones"
+          onChange={handleRememberLogin}
+          value={rememberLogin}
         />
         <Button
           type="submit"

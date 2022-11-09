@@ -115,6 +115,12 @@ const NewAdvertPage = (props) => {
           ))}
         </div>
 
+        <input
+          type="file"
+          name="upload-photo"
+          accept="image/png, .jpeg, .jpg"
+        />
+
         <Button
           type="submit"
           className="newAdvert-submit"

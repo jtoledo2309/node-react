@@ -11,6 +11,12 @@ export const login = (credentials) => {
   });
 };
 
+export const loginNotSet = (credentials) => {
+  return client.post("/api/auth/login", credentials).then(({ accessToken }) => {
+    setAuthorizationHeader(accessToken);
+  });
+};
+
 export const logout = () => {
   return Promise.resolve().then(() => {
     removeAuthorizationHeader();
