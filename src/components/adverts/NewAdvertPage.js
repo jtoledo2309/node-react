@@ -102,34 +102,18 @@ const NewAdvertPage = (props) => {
           value={forSale}
         />
         <label>Etiquetas</label>
-        <CheckBox
-          type="checkbox"
-          name="lifestile"
-          label="lifestile"
-          onChange={handleChangeCheckbox}
-          value="lifestile"
-        />
-        <CheckBox
-          type="checkbox"
-          name="mobile"
-          label="mobile"
-          onChange={handleChangeCheckbox}
-          value="mobile"
-        />
-        <CheckBox
-          type="checkbox"
-          name="motor"
-          label="motor"
-          onChange={handleChangeCheckbox}
-          value="motor"
-        />
-        <CheckBox
-          type="checkbox"
-          name="work"
-          label="work"
-          onChange={handleChangeCheckbox}
-          value="work"
-        />
+        <div className="newAdvert-checkbox">
+          {etiquetas.map((tag) => (
+            <CheckBox
+              type="checkbox"
+              key={tag}
+              name={tag}
+              label={tag}
+              onChange={handleChangeCheckbox}
+              value={tag}
+            />
+          ))}
+        </div>
 
         <Button
           type="submit"

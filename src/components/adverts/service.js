@@ -21,3 +21,8 @@ export const createAdvert = (advert) => {
   const url = advertUrl;
   return client.post(url, advert);
 };
+
+export const removeAdvert = (advertId) => {
+  const url = `${advertUrl}/${advertId}`;
+  return client.delete(url);
+};

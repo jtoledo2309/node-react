@@ -1,10 +1,6 @@
-import classNames from "classnames";
-
-import "./FormField.css";
-
-const CheckBox = ({ className, label, ...props }) => {
+const CheckBox = ({ label, ...props }) => {
   return (
-    <div className={classNames("formField", className)}>
+    <div className="checkbox-general">
       <input {...props} />
       <label> {label}</label>
     </div>

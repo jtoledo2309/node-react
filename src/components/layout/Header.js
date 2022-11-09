@@ -21,10 +21,10 @@ const Header = ({ className }) => {
         </div>
       </Link>
       <nav className="header-nav">
-        <NavLink to="/adverts/new" end>
+        <NavLink to="/adverts/new" className="header-addProduct" end>
           Añadir producto{" "}
         </NavLink>
-        <NavLink to="/adverts" end>
+        <NavLink to="/adverts" className="header-listProduct" end>
           Listado de productos
         </NavLink>
         {isLogged ? (
