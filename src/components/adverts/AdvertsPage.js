@@ -4,6 +4,9 @@ import Page from "../layout/Page";
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
 
+import "./AdvertsPage.css";
+import { FilterNav } from "../common/FilterNav";
+
 const EmptyList = () => (
   <div>
     <p>Sube tu primer producto</p>
@@ -25,14 +28,15 @@ const AdvertsPage = (props) => {
 
   return (
     <Page title="Node-React" {...props}>
+      <FilterNav />
       <div className="advertsPage">
         {adverts.length ? (
           <ul>
             {adverts.map((item) => (
-              <li key={item.id}>
+              <li className="advertsPage-item" key={item.id}>
                 <Link to={`/adverts/${item.id}`}>
-                  Producto: {item.name} - etiqueta/s: {item.tags} -precio:{" "}
-                  {item.price} -estado:{item.sale ? "Se vende" : "Buscado"}
+                  Producto: {item.name} - Etiqueta/s: {item.tags} -Precio:{" "}
+                  {item.price} -Estado:{item.sale ? "Se vende" : "Se compra"}
                 </Link>
               </li>
             ))}

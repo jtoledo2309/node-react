@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import Button from "../common/Button";
-import RadioButton from "../common/RadioButton";
-import FormField from "../common/FormField";
-import Page from "../layout/Page";
-import CheckBox from "../common/Checkbox";
-import { createAdvert, getTags } from "./service";
+import { getTags } from "../adverts/service";
 import { useNavigate } from "react-router-dom";
+import CheckBox from "./Checkbox";
+import { getAdvertsFiltered, getEndpoint } from "../../utils/SearchParams";
 
-const NewAdvertPage = (props) => {
+export const FilterNav = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [forSale, setForSale] = useState(undefined);
   const [tags, setTags] = useState([]);
   const [etiquetas, setEtiquetas] = useState([]);
-  const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
 
   const handleChangeName = (event) => setName(event.target.value);
@@ -24,6 +20,9 @@ const NewAdvertPage = (props) => {
   const handleForBuy = () => {
     setForSale(false);
   };
+  const handleForSaleAll = () => {
+    setForSale(undefined);
+  };
 
   const handleChangeCheckbox = (event) => {
     if (event.target.checked) {
@@ -33,30 +32,30 @@ const NewAdvertPage = (props) => {
     }
   };
 
-  const handleChangePhoto = (event) => setPhoto(event.target.files[0]);
+  let petition = {};
+  if (name) {
+    petition.name = name;
+  }
+  if (price) {
+    petition.price = price;
+  }
+  if (forSale !== undefined) {
+    petition.sale = forSale;
+  }
+  if (tags.length > 0) {
+    petition.tags = tags;
+  }
+
+  console.log(petition);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("sale", forSale);
-    formData.append("price", price);
-    formData.append("tags", tags);
-    if (photo !== null) {
-      formData.append("photo", photo);
-    }
     try {
-      const newAdvert = await createAdvert(formData);
-      navigate(`/adverts/${newAdvert.id}`);
+      const query = getEndpoint(petition);
+      const urlFiltered = await getAdvertsFiltered(query);
+      navigate(urlFiltered);
     } catch (error) {
       console.log(error);
-      if (error.status === 401) {
-        navigate("/login");
-      }
     }
-  };
-
-  const isDisabled = () => {
-    return !(name && price && forSale !== undefined && tags.length > 0);
   };
 
   useEffect(() => {
@@ -67,29 +66,27 @@ const NewAdvertPage = (props) => {
     traerEtiquetas();
   }, []);
 
-  //console.log(etiquetas);
-
   return (
-    <Page title="Upload a product" {...props}>
+    <div className="filterNav-container">
       <form onSubmit={handleSubmit}>
-        <FormField
+        <input
           type="text"
           name="producto"
           className="newAdvert-name"
-          label="Product to upload"
+          placeholder="Nombre del producto"
           onChange={handleChangeName}
           value={name}
         />
-        <FormField
+        <input
           type="text"
           name="precio"
           className="newAdvert-price"
-          label="Money"
+          placeholder="Precio del producto"
           onChange={handleChangePrice}
           value={price}
         />
-        <label>Compra o venta</label>
-        <RadioButton
+        <label>Compra</label>
+        <input
           type="radio"
           name="venta"
           id="venta"
@@ -98,13 +95,24 @@ const NewAdvertPage = (props) => {
           onChange={handleForSale}
           value={forSale}
         />
-        <RadioButton
+        <label>Venta</label>
+        <input
           type="radio"
           name="venta"
           id="venta"
           className="newAdvert-venta"
           label="Compra"
           onChange={handleForBuy}
+          value={forSale}
+        />
+        <label>Todos</label>
+        <input
+          type="radio"
+          name="venta"
+          id="venta"
+          className="newAdvert-venta"
+          label="Todos"
+          onChange={handleForSaleAll}
           value={forSale}
         />
         <label>Etiquetas</label>
@@ -121,23 +129,10 @@ const NewAdvertPage = (props) => {
           ))}
         </div>
 
-        <input
-          type="file"
-          name="upload-photo"
-          accept="image/png, .jpeg, .jpg"
-          onChange={handleChangePhoto}
-        />
-
-        <Button
-          type="submit"
-          className="newAdvert-submit"
-          disabled={isDisabled()}
-        >
-          Subir
-        </Button>
+        <button type="submit" className="newAdvert-submit">
+          Buscar
+        </button>
       </form>
-    </Page>
+    </div>
   );
 };
-
-export default NewAdvertPage;

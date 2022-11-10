@@ -45,8 +45,8 @@ const AdvertDetail = (props) => {
       {advert !== null ? (
         <div>
           Name: {advert.name} - Precio: {advert.price}$ -Estado:
-          {advert.forSale ? "Se vende" : "Se compra"} -Etiquetas:
-          {advert.tags} - Imagen:{" "}
+          {advert.sale ? "Se vende" : "Se compra"} -Etiquetas:
+          {advert.tags}
           {advert.photo ? (
             <img src={advert.photo} alt="imagen del producto" />
           ) : (
