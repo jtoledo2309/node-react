@@ -44,14 +44,27 @@ const AdvertDetail = (props) => {
     <Page title="Detail product" {...props}>
       {advert !== null ? (
         <div>
-          Name: {advert.name} - Precio: {advert.price}$ -Estado:
-          {advert.sale ? "Se vende" : "Se compra"} -Etiquetas:
-          {advert.tags}
-          {advert.photo ? (
-            <img src={advert.photo} alt="imagen del producto" />
-          ) : (
-            ""
-          )}{" "}
+          <p>Name: {advert.name}</p>
+          <p>
+            - Precio: {advert.price}$ -Estado:
+            {advert.sale ? "Se vende" : "Se compra"}
+          </p>
+          <p>
+            -Etiquetas:
+            {advert.tags.toString()}
+          </p>
+          <div>
+            {advert.photo ? (
+              <img
+                height="60%"
+                width="40%"
+                src={advert.photo}
+                alt="imagen del producto"
+              />
+            ) : (
+              ""
+            )}{" "}
+          </div>
         </div>
       ) : (
         " "

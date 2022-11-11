@@ -184,8 +184,12 @@ const AdvertsPage = (props) => {
             {adverts.map((item) => (
               <li className="advertsPage-item" key={item.id}>
                 <Link to={`/adverts/${item.id}`}>
-                  Producto: {item.name} - Etiqueta/s: {item.tags} -Precio:{" "}
-                  {item.price} -Estado:{item.sale ? "Se vende" : "Se compra"}
+                  <p>Producto: {item.name}</p>
+                  <p>
+                    -Precio: {item.price}$ -Estado:
+                    {item.sale ? "Se vende" : "Se compra"}
+                  </p>
+                  <p> - Etiqueta/s: {item.tags.toString()} </p>
                 </Link>
               </li>
             ))}
