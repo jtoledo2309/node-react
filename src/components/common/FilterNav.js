@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTags } from "../adverts/service";
+import { getAdverts, getTags } from "../adverts/service";
 import { useNavigate } from "react-router-dom";
 import CheckBox from "./Checkbox";
 import { getAdvertsFiltered, getEndpoint } from "../../utils/SearchParams";
@@ -47,12 +47,14 @@ export const FilterNav = () => {
   }
 
   console.log(petition);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const query = getEndpoint(petition);
-      const urlFiltered = await getAdvertsFiltered(query);
-      navigate(urlFiltered);
+      console.log(query);
+      const advertsFiltered = await getAdvertsFiltered(query);
+      console.log(advertsFiltered);
     } catch (error) {
       console.log(error);
     }
@@ -78,14 +80,14 @@ export const FilterNav = () => {
           value={name}
         />
         <input
-          type="text"
+          type="number"
           name="precio"
           className="newAdvert-price"
           placeholder="Precio del producto"
           onChange={handleChangePrice}
           value={price}
         />
-        <label>Compra</label>
+        <label>Venta</label>
         <input
           type="radio"
           name="venta"
@@ -95,7 +97,7 @@ export const FilterNav = () => {
           onChange={handleForSale}
           value={forSale}
         />
-        <label>Venta</label>
+        <label>Compra</label>
         <input
           type="radio"
           name="venta"

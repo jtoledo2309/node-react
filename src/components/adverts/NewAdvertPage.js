@@ -81,7 +81,7 @@ const NewAdvertPage = (props) => {
           value={name}
         />
         <FormField
-          type="text"
+          type="number"
           name="precio"
           className="newAdvert-price"
           label="Money"

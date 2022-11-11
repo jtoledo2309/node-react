@@ -4,7 +4,15 @@ export const getEndpoint = (query) => {
   let url = "http://localhost:3001/api/v1/adverts?";
 
   for (let key in query) {
-    url += `${key}=${query[key]}&`;
+    const value = query[key];
+
+    if (Array.isArray(value)) {
+      for (let subValue of value) {
+        url += `${key}=${subValue}&`;
+      }
+    } else {
+      url += `${key}=${value}&`;
+    }
   }
 
   return url.slice(0, -1);
