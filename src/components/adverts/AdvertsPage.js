@@ -104,73 +104,88 @@ const AdvertsPage = (props) => {
   return (
     <Page title="Node-React" {...props}>
       <div className="filterNav-container">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="producto"
-            className="newAdvert-name"
-            placeholder="Nombre del producto"
-            onChange={handleChangeName}
-            value={name}
-          />
-          <input
-            type="number"
-            name="precio-min"
-            className="newAdvert-price"
-            placeholder="Precio minimo"
-            onChange={handleChangePriceMin}
-            value={priceMin}
-          />
-          <input
-            type="number"
-            name="precio-max"
-            className="newAdvert-price"
-            placeholder="Precio maximo"
-            onChange={handleChangePriceMax}
-            value={priceMax}
-          />
-          <label>Venta</label>
-          <input
-            type="radio"
-            name="venta"
-            id="venta"
-            className="newAdvert-venta"
-            label="Venta"
-            onChange={handleForSale}
-            value={forSale}
-          />
-          <label>Compra</label>
-          <input
-            type="radio"
-            name="venta"
-            id="venta"
-            className="newAdvert-venta"
-            label="Compra"
-            onChange={handleForBuy}
-            value={forSale}
-          />
-          <label>Todos</label>
-          <input
-            type="radio"
-            name="venta"
-            id="venta"
-            className="newAdvert-venta"
-            label="Todos"
-            onChange={handleForSaleAll}
-            value={forSale}
-          />
-          <label>Etiquetas</label>
-          <div className="newAdvert-checkbox">
-            {etiquetas.map((tag) => (
-              <CheckBox
-                type="checkbox"
-                key={tag}
-                name={tag}
-                label={tag}
-                onChange={handleChangeCheckbox}
-                value={tag}
+        <form onSubmit={handleSubmit} className="form-wrap">
+          <div className="name-wrap">
+            <input
+              type="text"
+              name="producto"
+              className="newAdvert-name"
+              placeholder="Nombre del producto"
+              onChange={handleChangeName}
+              value={name}
+            />
+          </div>
+          <div className="price-wrap">
+            <input
+              type="number"
+              name="precio-min"
+              className="newAdvert-price"
+              placeholder="Precio minimo"
+              onChange={handleChangePriceMin}
+              value={priceMin}
+            />
+            <input
+              type="number"
+              name="precio-max"
+              className="newAdvert-price"
+              placeholder="Precio maximo"
+              onChange={handleChangePriceMax}
+              value={priceMax}
+            />
+          </div>
+          <div className="sales-wrap">
+            <label>Estado del producto </label>
+            <div>
+              <label>Venta</label>
+              <input
+                type="radio"
+                name="venta"
+                id="venta"
+                className="newAdvert-venta"
+                label="Venta"
+                onChange={handleForSale}
+                value={forSale}
               />
-            ))}
+            </div>
+            <div>
+              <label>Compra</label>
+              <input
+                type="radio"
+                name="venta"
+                id="venta"
+                className="newAdvert-venta"
+                label="Compra"
+                onChange={handleForBuy}
+                value={forSale}
+              />
+            </div>
+            <div>
+              <label>Todos</label>
+              <input
+                type="radio"
+                name="venta"
+                id="venta"
+                className="newAdvert-venta"
+                label="Todos"
+                onChange={handleForSaleAll}
+                value={forSale}
+              />
+            </div>
+          </div>
+          <div className="tags-wrap">
+            <label>Etiquetas</label>
+            <div className="newAdvert-checkbox">
+              {etiquetas.map((tag) => (
+                <CheckBox
+                  type="checkbox"
+                  key={tag}
+                  name={tag}
+                  label={tag}
+                  onChange={handleChangeCheckbox}
+                  value={tag}
+                />
+              ))}
+            </div>
           </div>
 
           <button type="submit" className="newAdvert-submit">

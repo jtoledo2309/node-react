@@ -1,27 +1,71 @@
 .advertsPage {
-  background-color: whitesmoke;
+  background-color: rgb(253, 250, 250);
 }
 
 .advertsPage-item {
   padding: 5px;
   margin-bottom: 2px;
-  border-bottom: 1px solid darkred;
+  border-bottom: 1px solid rgb(239, 187, 105);
 }
 
 .filterNav-container {
-  background-color: blanchedalmond;
+  background-color: rgb(252, 241, 223);
+}
+.name-wrap {
+  border-bottom: 1px solid grey;
+}
+
+.form-wrap {
+  padding: 20px 5px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 20% 70% 10%;
+}
+
+.sales-wrap {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid grey;
+}
+
+.sales-wrap > label {
+  font-weight: bold;
+}
+
+.newAdvert-checkbox {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.tags-wrap > label {
+  font-weight: bold;
 }
 
 .newAdvert-name {
   border: 1px solid grey;
   margin: 0px 5px;
   border-radius: 15px;
-  max-width: 20%;
+  max-width: 70%;
+}
+
+.price-wrap {
+  border-bottom: 1px solid grey;
 }
 
 .newAdvert-price {
   border: 1px solid grey;
   margin: 0px 5px;
   border-radius: 15px;
-  max-width: 15%;
+  max-width: 40%;
+}
+
+.newAdvert-submit {
+  font-weight: bold;
+  border: 1px solid rgb(57, 55, 55);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

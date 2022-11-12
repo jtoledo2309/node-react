@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from "../common/Button";
 import RadioButton from "../common/RadioButton";
-import FormField from "../common/FormField";
 import Page from "../layout/Page";
 import CheckBox from "../common/Checkbox";
 import { createAdvert, getTags } from "./service";
 import { useNavigate } from "react-router-dom";
+
+import "./NewAdvertsPage.css";
 
 const NewAdvertPage = (props) => {
   const [name, setName] = useState("");
@@ -67,33 +68,37 @@ const NewAdvertPage = (props) => {
     traerEtiquetas();
   }, []);
 
-  //console.log(etiquetas);
-
   return (
     <Page title="Upload a product" {...props}>
-      <form onSubmit={handleSubmit}>
-        <FormField
-          type="text"
-          name="producto"
-          className="newAdvert-name"
-          label="Product to upload"
-          onChange={handleChangeName}
-          value={name}
-        />
-        <FormField
-          type="number"
-          name="precio"
-          className="newAdvert-price"
-          label="Money"
-          onChange={handleChangePrice}
-          value={price}
-        />
-        <label>Compra o venta</label>
+      <form onSubmit={handleSubmit} className="newAdvert-page-form">
+        <div className="name-form-wrap">
+          <label className="label-form">Nombre del producto</label>
+          <input
+            type="text"
+            name="producto"
+            className="newAdvert-name-form"
+            placeholder="Nombre del producto"
+            onChange={handleChangeName}
+            value={name}
+          />
+        </div>
+        <div className="price-form-wrap">
+          <label className="label-form">Precio del producto</label>
+          <input
+            type="number"
+            name="precio"
+            className="newAdvert-price-form"
+            placeholder="Precio ($)"
+            onChange={handleChangePrice}
+            value={price}
+          />
+        </div>
+        <label className="label-form">Compra o venta</label>
         <RadioButton
           type="radio"
           name="venta"
           id="venta"
-          className="newAdvert-venta"
+          className="newAdvert-venta-form"
           label="Venta"
           onChange={handleForSale}
           value={forSale}
@@ -102,13 +107,13 @@ const NewAdvertPage = (props) => {
           type="radio"
           name="venta"
           id="venta"
-          className="newAdvert-venta"
+          className="newAdvert-venta-form"
           label="Compra"
           onChange={handleForBuy}
           value={forSale}
         />
-        <label>Etiquetas</label>
-        <div className="newAdvert-checkbox">
+        <label className="label-form">Etiquetas</label>
+        <div className="newAdvert-checkbox-form">
           {etiquetas.map((tag) => (
             <CheckBox
               type="checkbox"

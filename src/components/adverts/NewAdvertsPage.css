@@ -1,0 +1,29 @@
+.newAdvert-page-form {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(252, 241, 223);
+}
+
+.newAdvert-page-form > * {
+  padding: 10px;
+}
+
+.newAdvert-name-form {
+  border: 1px solid grey;
+  margin: 0px 5px;
+  border-radius: 15px;
+  width: 50%;
+}
+
+.newAdvert-price-form {
+  border: 1px solid grey;
+  margin: 0px 5px;
+  border-radius: 15px;
+  max-width: 40%;
+}
+
+.label-form {
+  border-bottom: 1px solid grey;
+  max-width: 30%;
+  font-weight: bold;
+}
