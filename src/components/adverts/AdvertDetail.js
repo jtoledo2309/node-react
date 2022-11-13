@@ -62,7 +62,7 @@ const AdvertDetail = (props) => {
                 alt="imagen del producto"
               />
             ) : (
-              ""
+              "Imagen no disponible"
             )}{" "}
           </div>
         </div>
