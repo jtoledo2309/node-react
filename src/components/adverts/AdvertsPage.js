@@ -11,7 +11,7 @@ import "./AdvertsPage.css";
 
 const EmptyList = () => (
   <div>
-    <p>Sube tu primer producto</p>
+    <p>No existen resultados. Quieres subir un producto?</p>
     <Button as={Link} to="new" variant="primary">
       Subir
     </Button>
@@ -79,13 +79,10 @@ const AdvertsPage = (props) => {
     petition.tags = tags;
   }
 
-  console.log(petition);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const query = getEndpoint(petition);
-      console.log(query);
       const advertsFiltered = await getAdvertsFiltered(query);
       setAdverts(advertsFiltered);
     } catch (error) {
@@ -129,6 +126,7 @@ const AdvertsPage = (props) => {
               name="precio-max"
               className="newAdvert-price"
               placeholder="Precio maximo"
+              disabled={priceMin ? false : true}
               onChange={handleChangePriceMax}
               value={priceMax}
             />
