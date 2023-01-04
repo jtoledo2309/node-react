@@ -5,8 +5,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
 import { login, loginNotSet } from "./service";
-import { useAuth } from "./context";
 import CheckBox from "../common/Checkbox";
+import { useDispatch } from "react-redux";
+import { authLogin } from "../../store/actions";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const LoginPage = ({ onLogin }) => {
   const [isFetching, setIsFetching] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { handleLogin } = useAuth();
+  const dispatch = useDispatch();
   const [rememberLogin, setRememberLogin] = useState(false);
 
   const handleChangeUsername = (event) => setEmail(event.target.value);
@@ -34,12 +35,12 @@ const LoginPage = ({ onLogin }) => {
       setIsFetching(true);
       if (rememberLogin) {
         await login({ email, password });
-        handleLogin();
+        dispatch(authLogin());
         const previousroute = location.state?.from?.pathname || "/";
         navigate(previousroute, { replace: true });
       } else {
         await loginNotSet({ email, password });
-        handleLogin();
+        dispatch(authLogin());
         const previousroute = location.state?.from?.pathname || "/";
         navigate(previousroute, { replace: true });
       }

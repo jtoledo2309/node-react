@@ -4,13 +4,17 @@ import classNames from "classnames";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { logout } from "../auth/service";
-import { useAuth } from "../auth/context";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsLogged } from "../../store/selector";
+import { authLogout } from "../../store/actions";
 
 const Header = ({ className }) => {
-  const { isLogged, handleLogout } = useAuth();
+  const isLogged = useSelector(getIsLogged);
+  const dispatch = useDispatch();
+
   const handleLogoutClick = async () => {
     await logout();
-    handleLogout();
+    dispatch(authLogout);
   };
 
   return (

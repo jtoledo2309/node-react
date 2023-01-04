@@ -6,6 +6,7 @@ import App from "./App";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./components/api/client";
 import { AuthContextProvider } from "./components/auth/context";
+import { Provider } from "react-redux";
 
 import configureStore from "./store";
 
@@ -17,10 +18,10 @@ const store = configureStore({ auth: !!accesToken });
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
-  <Router>
-    <AuthContextProvider isInitiallyLogged={!!accesToken}>
+  <Provider store={store}>
+    <Router>
       <App />
-    </AuthContextProvider>
-  </Router>
+    </Router>
+  </Provider>
   //</React.StrictMode>
 );
