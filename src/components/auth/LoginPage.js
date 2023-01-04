@@ -6,22 +6,27 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import { login, loginNotSet } from "./service";
 import CheckBox from "../common/Checkbox";
-import { useDispatch } from "react-redux";
-import { authLogin } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  authLoginFailure,
+  authLoginRequest,
+  authLoginSucess,
+  uiResetError,
+} from "../../store/actions";
+import { getUi } from "../../store/selector";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [isFetching, setIsFetching] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoading, error } = useSelector(getUi);
   const [rememberLogin, setRememberLogin] = useState(false);
+  const handleResetError = () => dispatch(uiResetError());
 
   const handleChangeUsername = (event) => setEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
-  const resetError = () => setError(null);
 
   const handleRememberLogin = (event) => {
     event.target.checked ? setRememberLogin(true) : setRememberLogin(false);
@@ -31,27 +36,25 @@ const LoginPage = ({ onLogin }) => {
     event.preventDefault();
 
     try {
-      resetError();
-      setIsFetching(true);
+      dispatch(authLoginRequest());
       if (rememberLogin) {
         await login({ email, password });
-        dispatch(authLogin());
+        dispatch(authLoginSucess());
         const previousroute = location.state?.from?.pathname || "/";
         navigate(previousroute, { replace: true });
       } else {
         await loginNotSet({ email, password });
-        dispatch(authLogin());
+        dispatch(authLoginSucess());
         const previousroute = location.state?.from?.pathname || "/";
         navigate(previousroute, { replace: true });
       }
     } catch (error) {
-      setError(error);
-      setIsFetching(false);
+      dispatch(authLoginFailure(error));
     }
   };
 
   const isDisabled = () => {
-    return !(email && password && !isFetching);
+    return !(email && password && !isLoading);
   };
   return (
     <div className="loginPage">
@@ -91,7 +94,7 @@ const LoginPage = ({ onLogin }) => {
       </form>
 
       {error && (
-        <div className="loginPage-error" onClick={resetError}>
+        <div className="loginPage-error" onClick={handleResetError}>
           {error.message}
         </div>
       )}

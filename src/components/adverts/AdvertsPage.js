@@ -8,6 +8,8 @@ import CheckBox from "../common/Checkbox";
 import { useNavigate } from "react-router-dom";
 
 import "./AdvertsPage.css";
+import { advertsLoaded } from "../../store/actions";
+import { connect } from "react-redux";
 
 const EmptyList = () => (
   <div>
@@ -18,8 +20,8 @@ const EmptyList = () => (
   </div>
 );
 
-const AdvertsPage = (props) => {
-  const [adverts, setAdverts] = useState([]);
+const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
+  //const [adverts, setAdverts] = useState([]);
   const [name, setName] = useState("");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
@@ -31,7 +33,7 @@ const AdvertsPage = (props) => {
   useEffect(() => {
     const execute = async () => {
       const adverts = await getAdverts();
-      setAdverts(adverts);
+      onAdvertsLoaded(adverts);
     };
     execute();
   }, []);
@@ -84,7 +86,7 @@ const AdvertsPage = (props) => {
     try {
       const query = getEndpoint(petition);
       const advertsFiltered = await getAdvertsFiltered(query);
-      setAdverts(advertsFiltered);
+      onAdvertsLoaded(advertsFiltered);
     } catch (error) {
       navigate("404");
     }
@@ -215,4 +217,16 @@ const AdvertsPage = (props) => {
   );
 };
 
-export default AdvertsPage;
+const mapStateToProps = (state, ownProps) => ({
+  adverts: state.adverts,
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onAdvertsLoaded: (adverts) => dispatch(advertsLoaded(adverts)),
+});
+const connectedAdvertsPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdvertsPage);
+
+export default connectedAdvertsPage;

@@ -1,8 +1,26 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, ADVERTS_LOADED } from "./types.js";
+// auth: true/false
+// adverts: []
+// ui: {
+//   isLoading: true/false
+//   error: error/null
+// }
+
+import {
+  AUTH_LOGIN_SUCESS,
+  AUTH_LOGOUT,
+  ADVERTS_LOADED,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_FAILURE,
+  UI_RESET_ERROR,
+} from "./types.js";
 
 const defaultState = {
   auth: false,
   adverts: [],
+  ui: {
+    isLoading: false,
+    error: null,
+  },
 };
 
 // export default function reducer(state = defaultState, action) {
@@ -23,7 +41,7 @@ const defaultState = {
 
 export function auth(state = defaultState.auth, action) {
   switch (action.type) {
-    case AUTH_LOGIN:
+    case AUTH_LOGIN_SUCESS:
       return true;
 
     case AUTH_LOGOUT:
@@ -41,6 +59,32 @@ export function adverts(state = defaultState.adverts, action) {
   return state;
 }
 
+export function ui(state = defaultState.ui, action) {
+  switch (action.type) {
+    case AUTH_LOGIN_REQUEST:
+      return {
+        error: null,
+        isLoading: true,
+      };
+    case AUTH_LOGIN_SUCESS:
+      return {
+        error: null,
+        isLoading: false,
+      };
+    case AUTH_LOGIN_FAILURE:
+      return {
+        error: action.payload,
+        isLoading: false,
+      };
+    case UI_RESET_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+}
 // export default function reducer(state = defaultState, action) {
 //   return {
 //     auth: auth(state.auth, action),

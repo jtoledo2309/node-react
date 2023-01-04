@@ -5,7 +5,6 @@ import "./index.css";
 import App from "./App";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./components/api/client";
-import { AuthContextProvider } from "./components/auth/context";
 import { Provider } from "react-redux";
 
 import configureStore from "./store";

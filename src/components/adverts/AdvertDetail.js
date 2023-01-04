@@ -3,23 +3,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAdvertsDetail, removeAdvert } from "./service";
 import Button from "../common/Button";
+import { useSelector } from "react-redux";
+import { getUniqueAdvert } from "../../store/selector";
 
 const AdvertDetail = (props) => {
-  const [advert, setAdvert] = useState(null);
+  //const [advert, setAdvert] = useState(null);
   const [deleteProdcut, setDeleteProdcut] = useState(false);
   const [removeProduct, setRemoveProduct] = useState(false);
   const { advertId } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getAdvertsDetail(advertId)
-      .then((advert) => setAdvert(advert))
-      .catch((error) => {
-        if (error.status === 404) {
-          navigate("404");
-        }
-      });
-  }, [advertId, navigate]);
+  const advert = useSelector((state) => getUniqueAdvert(state, advertId));
+
+  // useEffect(() => {
+  //   getAdvertsDetail(advertId)
+  //     .then((advert) => setAdvert(advert))
+  //     .catch((error) => {
+  //       if (error.status === 404) {
+  //         navigate("404");
+  //       }
+  //     });
+  // }, [advertId, navigate]);
 
   const handleDeleteProduct = () => setDeleteProdcut(true);
 
