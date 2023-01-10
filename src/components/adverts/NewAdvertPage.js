@@ -3,10 +3,12 @@ import Button from "../common/Button";
 import RadioButton from "../common/RadioButton";
 import Page from "../layout/Page";
 import CheckBox from "../common/Checkbox";
-import { createAdvert, getTags } from "./service";
+import { getTags } from "./service";
 import { useNavigate } from "react-router-dom";
 
 import "./NewAdvertsPage.css";
+import { useDispatch } from "react-redux";
+import { advertCreated } from "../../store/actions";
 
 const NewAdvertPage = (props) => {
   const [name, setName] = useState("");
@@ -16,6 +18,7 @@ const NewAdvertPage = (props) => {
   const [etiquetas, setEtiquetas] = useState([]);
   const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChangeName = (event) => setName(event.target.value);
   const handleChangePrice = (event) => setPrice(event.target.value);
@@ -46,7 +49,8 @@ const NewAdvertPage = (props) => {
       formData.append("photo", photo);
     }
     try {
-      const newAdvert = await createAdvert(formData);
+      const newAdvert = await dispatch(advertCreated(formData));
+      //const newAdvert = await createAdvert(formData);
       navigate(`/adverts/${newAdvert.id}`);
     } catch (error) {
       console.log(error);

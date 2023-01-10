@@ -11,6 +11,7 @@ import {
   ADVERTS_LOADED_SUCESS,
   UI_RESET_ERROR,
   ADVERT_LOADED_SUCESS,
+  ADVERT_CREATED_SUCESS,
 } from "./types.js";
 
 const defaultState = {
@@ -60,6 +61,9 @@ export function adverts(state = defaultState.adverts, action) {
   }
   if (action.type === ADVERT_LOADED_SUCESS) {
     return { ...state, data: [action.payload] };
+  }
+  if (action.type === ADVERT_CREATED_SUCESS) {
+    return { ...state, data: [...state.data, action.payload] };
   }
   return state;
 }

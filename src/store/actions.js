@@ -11,6 +11,9 @@ import {
   ADVERT_LOADED_REQUEST,
   ADVERT_LOADED_SUCESS,
   ADVERT_LOADED_FAILURE,
+  ADVERT_CREATED_REQUEST,
+  ADVERT_CREATED_SUCESS,
+  ADVERT_CREATED_FAILURE,
 } from "./types.js";
 
 export const authLoginRequest = () => ({
@@ -121,6 +124,35 @@ export const advertLoad = (advertId) => {
       dispatch(advertLoadedSucess(advert));
     } catch (error) {
       dispatch(advertLoadedFailure(error));
+      throw error;
+    }
+  };
+};
+
+export const advertCreatedRequest = () => ({
+  type: ADVERT_CREATED_REQUEST,
+});
+
+export const advertCreatedSucess = (advert) => ({
+  type: ADVERT_CREATED_SUCESS,
+  payload: advert,
+});
+
+export const advertCreatedFailure = (error) => ({
+  type: ADVERT_CREATED_FAILURE,
+  payload: error,
+  error: true,
+});
+
+export const advertCreated = (advert) => {
+  return async function (dispatch, getState, { api }) {
+    try {
+      dispatch(advertCreatedRequest());
+      const createdAdvert = await api.adverts.createAdvert(advert);
+      dispatch(advertCreatedSucess(createdAdvert));
+      return createdAdvert;
+    } catch (error) {
+      dispatch(advertCreatedFailure(error));
       throw error;
     }
   };
