@@ -21,6 +21,32 @@ export const authLoginFailure = (error) => ({
   error: true,
 });
 
+export const authLoginSet = (credenciales) => {
+  return async function (dispatch, getState, { api }) {
+    try {
+      dispatch(authLoginRequest());
+      await api.auth.login(credenciales);
+      dispatch(authLoginSucess());
+    } catch (error) {
+      dispatch(authLoginFailure(error));
+      throw error;
+    }
+  };
+};
+
+export const authLoginNotSet = (credenciales) => {
+  return async function (dispatch, getState, { api }) {
+    try {
+      dispatch(authLoginRequest());
+      await api.auth.loginNotSet(credenciales);
+      dispatch(authLoginSucess());
+    } catch (error) {
+      dispatch(authLoginFailure(error));
+      throw error;
+    }
+  };
+};
+
 export const authLogout = () => ({
   type: AUTH_LOGOUT,
 });

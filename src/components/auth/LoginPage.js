@@ -8,10 +8,12 @@ import { login, loginNotSet } from "./service";
 import CheckBox from "../common/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  authLoginSet,
   authLoginFailure,
   authLoginRequest,
   authLoginSucess,
   uiResetError,
+  authLoginNotSet,
 } from "../../store/actions";
 import { getUi } from "../../store/selector";
 
@@ -35,21 +37,19 @@ const LoginPage = ({ onLogin }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      dispatch(authLoginRequest());
-      if (rememberLogin) {
-        await login({ email, password });
-        dispatch(authLoginSucess());
-        const previousroute = location.state?.from?.pathname || "/";
-        navigate(previousroute, { replace: true });
-      } else {
-        await loginNotSet({ email, password });
-        dispatch(authLoginSucess());
-        const previousroute = location.state?.from?.pathname || "/";
-        navigate(previousroute, { replace: true });
-      }
-    } catch (error) {
-      dispatch(authLoginFailure(error));
+    //dispatch(authLoginRequest());
+    if (rememberLogin) {
+      await dispatch(authLoginSet({ email, password }));
+      //await login({ email, password });
+      //dispatch(authLoginSucess());
+      const previousroute = location.state?.from?.pathname || "/";
+      navigate(previousroute, { replace: true });
+    } else {
+      await dispatch(authLoginNotSet({ email, password }));
+      //await loginNotSet({ email, password });
+      //dispatch(authLoginSucess());
+      const previousroute = location.state?.from?.pathname || "/";
+      navigate(previousroute, { replace: true });
     }
   };
 
