@@ -4,14 +4,10 @@ import FormField from "../common/FormField";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
-import { login, loginNotSet } from "./service";
 import CheckBox from "../common/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import {
   authLoginSet,
-  authLoginFailure,
-  authLoginRequest,
-  authLoginSucess,
   uiResetError,
   authLoginNotSet,
 } from "../../store/actions";

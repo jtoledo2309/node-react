@@ -1,10 +1,11 @@
 import Page from "../layout/Page";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAdvertsDetail, removeAdvert } from "./service";
+import { removeAdvert } from "./service";
 import Button from "../common/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUniqueAdvert } from "../../store/selector";
+import { advertLoad } from "../../store/actions";
 
 const AdvertDetail = (props) => {
   //const [advert, setAdvert] = useState(null);
@@ -12,18 +13,18 @@ const AdvertDetail = (props) => {
   const [removeProduct, setRemoveProduct] = useState(false);
   const { advertId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const advert = useSelector((state) => getUniqueAdvert(state, advertId));
+  const advert = useSelector(getUniqueAdvert(advertId));
+  console.log(advert);
 
-  // useEffect(() => {
-  //   getAdvertsDetail(advertId)
-  //     .then((advert) => setAdvert(advert))
-  //     .catch((error) => {
-  //       if (error.status === 404) {
-  //         navigate("404");
-  //       }
-  //     });
-  // }, [advertId, navigate]);
+  useEffect(() => {
+    dispatch(advertLoad(advertId)).catch((error) => {
+      if (error.status === 404) {
+        navigate("404");
+      }
+    });
+  }, [dispatch, advertId, navigate]);
 
   const handleDeleteProduct = () => setDeleteProdcut(true);
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAdverts, getTags } from "./service";
+import { getTags } from "./service";
 import Page from "../layout/Page";
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
@@ -8,8 +8,9 @@ import CheckBox from "../common/Checkbox";
 import { useNavigate } from "react-router-dom";
 
 import "./AdvertsPage.css";
-import { advertsLoaded } from "../../store/actions";
+import { advertsLoad } from "../../store/actions";
 import { connect } from "react-redux";
+import { getAdverts } from "../../store/selector";
 
 const EmptyList = () => (
   <div>
@@ -31,11 +32,7 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const execute = async () => {
-      const adverts = await getAdverts();
-      onAdvertsLoaded(adverts);
-    };
-    execute();
+    onAdvertsLoaded(adverts);
   }, []);
 
   const handleChangeName = (event) => setName(event.target.value);
@@ -218,12 +215,12 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  adverts: state.adverts,
+  adverts: getAdverts(state),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onAdvertsLoaded: (adverts) => dispatch(advertsLoaded(adverts)),
-});
+const mapDispatchToProps = {
+  onAdvertsLoaded: advertsLoad,
+};
 const connectedAdvertsPage = connect(
   mapStateToProps,
   mapDispatchToProps

@@ -8,15 +8,17 @@
 import {
   AUTH_LOGIN_SUCESS,
   AUTH_LOGOUT,
-  ADVERTS_LOADED,
-  AUTH_LOGIN_REQUEST,
-  AUTH_LOGIN_FAILURE,
+  ADVERTS_LOADED_SUCESS,
   UI_RESET_ERROR,
+  ADVERT_LOADED_SUCESS,
 } from "./types.js";
 
 const defaultState = {
   auth: false,
-  adverts: [],
+  adverts: {
+    areLoaded: false,
+    data: [],
+  },
   ui: {
     isLoading: false,
     error: null,
@@ -53,8 +55,11 @@ export function auth(state = defaultState.auth, action) {
 }
 
 export function adverts(state = defaultState.adverts, action) {
-  if (action.type === ADVERTS_LOADED) {
-    return action.payload;
+  if (action.type === ADVERTS_LOADED_SUCESS) {
+    return { areLoaded: true, data: action.payload };
+  }
+  if (action.type === ADVERT_LOADED_SUCESS) {
+    return { ...state, data: [action.payload] };
   }
   return state;
 }

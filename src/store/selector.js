@@ -1,6 +1,11 @@
 export const getIsLogged = (state) => state.auth;
 
-export const getUniqueAdvert = (state, advertId) =>
-  state.adverts.find((advert) => advert.id === advertId);
+export const getAdverts = (state) =>
+  state.adverts.areLoaded ? state.adverts.data : [];
+
+export const areAdvertsLoaded = (state) => state.adverts.areLoaded;
+
+export const getUniqueAdvert = (advertId) => (state) =>
+  state.adverts.data.find((advert) => advert.id.toString() === advertId);
 
 export const getUi = (state) => state.ui;
