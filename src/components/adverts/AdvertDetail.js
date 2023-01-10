@@ -47,7 +47,7 @@ const AdvertDetail = (props) => {
 
   return (
     <Page title="Detail product" {...props}>
-      {advert !== null ? (
+      {advert !== undefined ? (
         <div>
           <p>Name: {advert.name}</p>
           <p>

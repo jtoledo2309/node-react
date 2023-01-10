@@ -53,9 +53,16 @@ export const authLoginNotSet = (credenciales) => {
   };
 };
 
-export const authLogout = () => ({
+export const authLogoutSucess = () => ({
   type: AUTH_LOGOUT,
 });
+
+export const authLogout = () => {
+  return async function (dispatch, getState, { api }) {
+    await api.auth.logout();
+    dispatch(authLogoutSucess());
+  };
+};
 
 export const advertsLoadedRequest = () => ({
   type: ADVERTS_LOADED_REQUEST,

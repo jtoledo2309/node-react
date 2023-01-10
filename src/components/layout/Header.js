@@ -3,7 +3,6 @@ import { ReactComponent as Icon } from "../../assets/logo.svg";
 import classNames from "classnames";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
-import { logout } from "../auth/service";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLogged } from "../../store/selector";
 import { authLogout } from "../../store/actions";
@@ -13,8 +12,7 @@ const Header = ({ className }) => {
   const dispatch = useDispatch();
 
   const handleLogoutClick = async () => {
-    await logout();
-    dispatch(authLogout);
+    dispatch(authLogout());
   };
 
   return (
