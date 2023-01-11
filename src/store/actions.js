@@ -85,14 +85,15 @@ export const advertsLoadedFailure = (error) => ({
   error: true,
 });
 
-export const advertsLoad = () => {
+export const advertsLoad = (advertFiltered) => {
   return async function (dispatch, getState, { api }) {
-    const areLoaded = areAdvertsLoaded(getState());
-    if (areLoaded) return;
+    // const areLoaded = areAdvertsLoaded(getState());
+    // if (areLoaded) return;
 
     try {
       dispatch(advertsLoadedRequest());
-      const adverts = await api.adverts.getAdverts();
+      console.log(advertFiltered);
+      const adverts = advertFiltered || (await api.adverts.getAdverts());
       dispatch(advertsLoadedSucess(adverts));
     } catch (error) {
       dispatch(advertsLoadedFailure(error));
@@ -180,8 +181,8 @@ export const advertDeleted = (advert) => {
   return async function (dispatch, getState, { api }) {
     try {
       dispatch(advertDeletedRequest());
-      const deletedAdvert = await api.adverts.removeAdvert(advert.id);
-      dispatch(advertDeletedSucess(deletedAdvert));
+      await api.adverts.removeAdvert(advert.id);
+      dispatch(advertDeletedSucess(advert.id));
     } catch (error) {
       dispatch(advertDeletedFailure(error));
       throw error;

@@ -58,6 +58,7 @@ export function auth(state = defaultState.auth, action) {
 
 export function adverts(state = defaultState.adverts, action) {
   if (action.type === ADVERTS_LOADED_SUCESS) {
+    console.log(action.payload);
     return { areLoaded: true, data: action.payload };
   }
   if (action.type === ADVERT_LOADED_SUCESS) {
@@ -67,9 +68,15 @@ export function adverts(state = defaultState.adverts, action) {
     return { ...state, data: [...state.data, action.payload] };
   }
   if (action.type === ADVERT_DELETED_SUCESS) {
+    console.log(action.payload);
+    console.log(state);
+    console.log({
+      ...state,
+      data: state.data.filter((advert) => advert.id !== action.payload),
+    });
     return {
       ...state,
-      data: [state.data.filter((advert) => advert.id !== action.payload.id)],
+      data: state.data.filter((advert) => advert.id !== action.payload),
     };
   }
   return state;

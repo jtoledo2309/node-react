@@ -32,7 +32,7 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAdvertsLoaded(adverts);
+    onAdvertsLoaded();
   }, []);
 
   const handleChangeName = (event) => setName(event.target.value);
@@ -83,6 +83,7 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
     try {
       const query = getEndpoint(petition);
       const advertsFiltered = await getAdvertsFiltered(query);
+      console.log(advertsFiltered);
       onAdvertsLoaded(advertsFiltered);
     } catch (error) {
       navigate("404");
