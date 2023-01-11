@@ -5,7 +5,7 @@ import { removeAdvert } from "./service";
 import Button from "../common/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueAdvert } from "../../store/selector";
-import { advertLoad } from "../../store/actions";
+import { advertDeleted, advertLoad } from "../../store/actions";
 
 const AdvertDetail = (props) => {
   //const [advert, setAdvert] = useState(null);
@@ -35,7 +35,8 @@ const AdvertDetail = (props) => {
   const borrarProducto = async (advert) => {
     try {
       console.log(advert);
-      await removeAdvert(advert.id);
+      dispatch(advertDeleted(advert));
+      //await removeAdvert(advert.id);
       navigate("/adverts");
     } catch (error) {
       navigate("404");

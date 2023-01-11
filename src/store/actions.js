@@ -14,6 +14,9 @@ import {
   ADVERT_CREATED_REQUEST,
   ADVERT_CREATED_SUCESS,
   ADVERT_CREATED_FAILURE,
+  ADVERT_DELETED_REQUEST,
+  ADVERT_DELETED_SUCESS,
+  ADVERT_DELETED_FAILURE,
 } from "./types.js";
 
 export const authLoginRequest = () => ({
@@ -158,6 +161,33 @@ export const advertCreated = (advert) => {
   };
 };
 
+export const advertDeletedRequest = () => ({
+  type: ADVERT_DELETED_REQUEST,
+});
+
+export const advertDeletedSucess = (advert) => ({
+  type: ADVERT_DELETED_SUCESS,
+  payload: advert,
+});
+
+export const advertDeletedFailure = (error) => ({
+  type: ADVERT_DELETED_FAILURE,
+  payload: error,
+  error: true,
+});
+
+export const advertDeleted = (advert) => {
+  return async function (dispatch, getState, { api }) {
+    try {
+      dispatch(advertDeletedRequest());
+      const deletedAdvert = await api.adverts.removeAdvert(advert.id);
+      dispatch(advertDeletedSucess(deletedAdvert));
+    } catch (error) {
+      dispatch(advertDeletedFailure(error));
+      throw error;
+    }
+  };
+};
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 });
