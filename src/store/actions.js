@@ -17,6 +17,9 @@ import {
   ADVERT_DELETED_REQUEST,
   ADVERT_DELETED_SUCESS,
   ADVERT_DELETED_FAILURE,
+  TAGS_LOADED_REQUEST,
+  TAGS_LOADED_SUCESS,
+  TAGS_LOADED_FAILURE,
 } from "./types.js";
 
 export const authLoginRequest = () => ({
@@ -92,7 +95,6 @@ export const advertsLoad = (advertFiltered) => {
 
     try {
       dispatch(advertsLoadedRequest());
-      console.log(advertFiltered);
       const adverts = advertFiltered || (await api.adverts.getAdverts());
       dispatch(advertsLoadedSucess(adverts));
     } catch (error) {
@@ -189,6 +191,36 @@ export const advertDeleted = (advert) => {
     }
   };
 };
+
+export const tagsLoadedRequest = () => ({
+  type: TAGS_LOADED_REQUEST,
+});
+
+export const tagsLoadedSucess = (tags) => ({
+  type: TAGS_LOADED_SUCESS,
+  payload: tags,
+});
+
+export const tagsLoadedFailure = (error) => ({
+  type: TAGS_LOADED_FAILURE,
+  payload: error,
+  error: true,
+});
+
+export const tagsLoad = () => {
+  return async function (dispatch, getState, { api }) {
+    try {
+      dispatch(tagsLoadedRequest());
+      const tags = await api.adverts.getTags();
+      console.log(tags);
+      dispatch(tagsLoadedSucess(tags));
+    } catch (error) {
+      dispatch(tagsLoadedFailure(error));
+      throw error;
+    }
+  };
+};
+
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 });

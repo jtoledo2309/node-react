@@ -1,7 +1,6 @@
 import Page from "../layout/Page";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { removeAdvert } from "./service";
 import Button from "../common/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueAdvert } from "../../store/selector";

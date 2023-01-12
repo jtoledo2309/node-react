@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getTags } from "./service";
 import Page from "../layout/Page";
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
@@ -8,9 +7,9 @@ import CheckBox from "../common/Checkbox";
 import { useNavigate } from "react-router-dom";
 
 import "./AdvertsPage.css";
-import { advertsLoad } from "../../store/actions";
+import { advertsLoad, tagsLoad } from "../../store/actions";
 import { connect } from "react-redux";
-import { getAdverts } from "../../store/selector";
+import { getAdverts, getTags } from "../../store/selector";
 
 const EmptyList = () => (
   <div>
@@ -21,14 +20,20 @@ const EmptyList = () => (
   </div>
 );
 
-const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
+const AdvertsPage = ({
+  onAdvertsLoaded,
+  onTagsLoaded,
+  tagArray,
+  adverts,
+  ...props
+}) => {
   //const [adverts, setAdverts] = useState([]);
   const [name, setName] = useState("");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
   const [forSale, setForSale] = useState(undefined);
   const [tags, setTags] = useState([]);
-  const [etiquetas, setEtiquetas] = useState([]);
+  //const [etiquetas, setEtiquetas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -91,11 +96,7 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
   };
 
   useEffect(() => {
-    const traerEtiquetas = async () => {
-      const etiquetas = await getTags();
-      setEtiquetas(etiquetas);
-    };
-    traerEtiquetas();
+    onTagsLoaded();
   }, []);
 
   return (
@@ -173,16 +174,18 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
           <div className="tags-wrap">
             <label>Etiquetas</label>
             <div className="newAdvert-checkbox">
-              {etiquetas.map((tag) => (
-                <CheckBox
-                  type="checkbox"
-                  key={tag}
-                  name={tag}
-                  label={tag}
-                  onChange={handleChangeCheckbox}
-                  value={tag}
-                />
-              ))}
+              {tagArray !== undefined && tagArray !== null
+                ? tagArray.map((tag) => (
+                    <CheckBox
+                      type="checkbox"
+                      key={tag}
+                      name={tag}
+                      label={tag}
+                      onChange={handleChangeCheckbox}
+                      value={tag}
+                    />
+                  ))
+                : []}
             </div>
           </div>
 
@@ -217,10 +220,12 @@ const AdvertsPage = ({ onAdvertsLoaded, adverts, ...props }) => {
 
 const mapStateToProps = (state, ownProps) => ({
   adverts: getAdverts(state),
+  tagArray: getTags(state),
 });
 
 const mapDispatchToProps = {
   onAdvertsLoaded: advertsLoad,
+  onTagsLoaded: tagsLoad,
 };
 const connectedAdvertsPage = connect(
   mapStateToProps,

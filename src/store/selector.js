@@ -3,6 +3,8 @@ export const getIsLogged = (state) => state.auth;
 export const getAdverts = (state) =>
   state.adverts.areLoaded ? state.adverts.data : [];
 
+export const getTags = (state) => state.adverts.tags;
+
 export const areAdvertsLoaded = (state) => state.adverts.areLoaded;
 
 export const getUniqueAdvert = (advertId) => (state) =>
