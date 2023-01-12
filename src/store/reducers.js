@@ -16,7 +16,7 @@ import {
   TAGS_LOADED_SUCESS,
 } from "./types.js";
 
-const defaultState = {
+export const defaultState = {
   auth: false,
   adverts: {
     areLoaded: false,
