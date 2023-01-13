@@ -3,19 +3,21 @@ import Button from "../common/Button";
 import RadioButton from "../common/RadioButton";
 import Page from "../layout/Page";
 import CheckBox from "../common/Checkbox";
-import { getTags } from "./service";
+//import { getTags } from "./service";
+
 import { useNavigate } from "react-router-dom";
 
 import "./NewAdvertsPage.css";
-import { useDispatch } from "react-redux";
-import { advertCreated } from "../../store/actions";
+import { connect, useDispatch } from "react-redux";
+import { advertCreated, tagsLoad } from "../../store/actions";
+import { getTags } from "../../store/selector";
 
-const NewAdvertPage = (props) => {
+const NewAdvertPage = ({ onTagsLoaded, tagArray, ...props }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [forSale, setForSale] = useState(undefined);
   const [tags, setTags] = useState([]);
-  const [etiquetas, setEtiquetas] = useState([]);
+  //const [etiquetas, setEtiquetas] = useState([]);
   const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -65,11 +67,7 @@ const NewAdvertPage = (props) => {
   };
 
   useEffect(() => {
-    const traerEtiquetas = async () => {
-      const etiquetas = await getTags();
-      setEtiquetas(etiquetas);
-    };
-    traerEtiquetas();
+    onTagsLoaded();
   }, []);
 
   return (
@@ -118,16 +116,17 @@ const NewAdvertPage = (props) => {
         />
         <label className="label-form">Etiquetas</label>
         <div className="newAdvert-checkbox-form">
-          {etiquetas.map((tag) => (
-            <CheckBox
-              type="checkbox"
-              key={tag}
-              name={tag}
-              label={tag}
-              onChange={handleChangeCheckbox}
-              value={tag}
-            />
-          ))}
+          {tagArray &&
+            tagArray.map((tag) => (
+              <CheckBox
+                type="checkbox"
+                key={tag}
+                name={tag}
+                label={tag}
+                onChange={handleChangeCheckbox}
+                value={tag}
+              />
+            ))}
         </div>
 
         <input
@@ -149,4 +148,16 @@ const NewAdvertPage = (props) => {
   );
 };
 
-export default NewAdvertPage;
+const mapStateToProps = (state, ownProps) => ({
+  tagArray: getTags(state),
+});
+
+const mapDispatchToProps = {
+  onTagsLoaded: tagsLoad,
+};
+const connectedNewAdvertsPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewAdvertPage);
+
+export default connectedNewAdvertsPage;

@@ -212,7 +212,6 @@ export const tagsLoad = () => {
     try {
       dispatch(tagsLoadedRequest());
       const tags = await api.adverts.getTags();
-      console.log(tags);
       dispatch(tagsLoadedSucess(tags));
     } catch (error) {
       dispatch(tagsLoadedFailure(error));

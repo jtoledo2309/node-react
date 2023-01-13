@@ -9,13 +9,11 @@ import { advertDeleted, advertLoad } from "../../store/actions";
 const AdvertDetail = (props) => {
   //const [advert, setAdvert] = useState(null);
   const [deleteProdcut, setDeleteProdcut] = useState(false);
-  const [removeProduct, setRemoveProduct] = useState(false);
   const { advertId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const advert = useSelector(getUniqueAdvert(advertId));
-  console.log(advert);
 
   useEffect(() => {
     dispatch(advertLoad(advertId)).catch((error) => {
@@ -29,21 +27,21 @@ const AdvertDetail = (props) => {
 
   const removeAdvise = () => setDeleteProdcut(false);
 
-  const handleRemoveProdcut = () => setRemoveProduct(true);
+  const handleRemoveProdcut = () => {
+    dispatch(advertDeleted(advert));
 
-  const borrarProducto = async (advert) => {
-    try {
-      console.log(advert);
-      dispatch(advertDeleted(advert));
-      //await removeAdvert(advert.id);
-      navigate("/adverts");
-    } catch (error) {
-      navigate("404");
-    }
+    navigate("/adverts");
   };
-  if (removeProduct) {
-    borrarProducto(advert);
-  }
+
+  // const borrarProducto = (advert) => {
+  //     console.log(advert);
+  //     dispatch(advertDeleted(advert));
+  //     //await removeAdvert(advert.id);
+  //     navigate("/adverts");
+  // };
+  // if (removeProduct) {
+  //   borrarProducto(advert);
+  // }
 
   return (
     <Page title="Detail product" {...props}>
