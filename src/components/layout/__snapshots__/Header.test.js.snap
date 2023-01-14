@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header snapshot 1`] = `
+<div>
+  <header
+    class="header"
+  >
+    <a
+      href="/"
+    >
+      <div
+        class="header-logo"
+      >
+        <svg
+          height="30"
+          width="30"
+        >
+          logo.svg
+        </svg>
+      </div>
+    </a>
+    <nav
+      class="header-nav"
+    >
+      <a
+        class="header-addProduct"
+        href="/adverts/new"
+      >
+        Añadir producto
+         
+      </a>
+      <a
+        class="header-listProduct"
+        href="/adverts"
+      >
+        Listado de productos
+      </a>
+      <a
+        class="sc-bcXHqe hQLFWa header-button"
+        href="/login"
+        variant="primary"
+      >
+        Login
+      </a>
+    </nav>
+  </header>
+</div>
+`;
