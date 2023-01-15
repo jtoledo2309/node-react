@@ -5,19 +5,21 @@ import { defaultState } from "../../store/reducers";
 import { BrowserRouter as Router } from "react-router-dom";
 
 describe("Header", () => {
-  test("snapshot", () => {
-    const store = {
-      getState: () => defaultState,
-      dispatch: () => {},
-      subscribe: () => {},
-    };
-    const { container } = render(
+  const store = {
+    getState: () => defaultState,
+    dispatch: () => {},
+    subscribe: () => {},
+  };
+  const renderComponent = () =>
+    render(
       <Provider store={store}>
         <Router>
           <Header />
         </Router>
       </Provider>
     );
+  test("snapshot", () => {
+    const { container } = renderComponent();
     expect(container).toMatchSnapshot();
   });
 });

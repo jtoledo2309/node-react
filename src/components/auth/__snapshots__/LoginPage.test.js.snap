@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loginPage snapshot 1`] = `
+<div>
+  <div
+    class="loginPage"
+  >
+    <h1
+      class="loginPage-title"
+    >
+      Log in to Node-React
+    </h1>
+    <form>
+      <div
+        class="formField loginForm-field"
+      >
+        <label
+          class="formField-label"
+        >
+          <span>
+            Enter your email
+          </span>
+          <input
+            autocomplete="off"
+            class="formField-input"
+            name="email"
+            type="text"
+            value=""
+          />
+        </label>
+      </div>
+      <div
+        class="formField loginForm-field"
+      >
+        <label
+          class="formField-label"
+        >
+          <span>
+            Enter your password
+          </span>
+          <input
+            autocomplete="off"
+            class="formField-input"
+            name="password"
+            type="password"
+            value=""
+          />
+        </label>
+      </div>
+      <div
+        class="checkbox-general"
+      >
+        <input
+          name="remember-password"
+          type="checkbox"
+          value="false"
+        />
+        <label>
+           
+          Quiero recordar tu usuario para proximas sesiones
+        </label>
+      </div>
+      <button
+        class="sc-bcXHqe diyiTl loginForm-submit"
+        disabled=""
+        type="submit"
+      >
+        LogIn
+      </button>
+    </form>
+  </div>
+</div>
+`;
