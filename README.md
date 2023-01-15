@@ -1,3 +1,15 @@
+# Aclaraciones para la practica de Redux:
+
+Parte testing:
+
+Los test se han hecho en el fichero de actions, reducers y selectors.
+Para los componentes se han hecho en los componentes de LoginPage(snapshot y mock) y Header(snapshot)
+
+Parte redux:
+Para la obtencion de los 4 tags disponibles que nos da el API, anteriormente se usaba el estado [etiquetas, setEtiquetas], que es el que ahora usa redux para obtenerlos y mostrarlos tanto en los filtros de la pagina inicial como en la pagina para subir un nuvo anuncio. NO CONFUNDIR CON EL ESTADO [tags, setTags] referente al tema del filtrado y preparar la query para llamar al API.
+
+La manera de obtener adverts, creacion y eliminacion se ha cambiado y ahora se despachan en redux estas acciones
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
